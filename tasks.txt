@@ -1,0 +1,4 @@
+{"task_type": "sum", "data": [5, 10, 15]}
+{"task_type": "reverse", "data": "python"}
+{"task_type": "prime", "data": 11}
+{"task_type": "prime", "data": 20}

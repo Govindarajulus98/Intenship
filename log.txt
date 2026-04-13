@@ -1,0 +1,8 @@
+Task: {"task_type": "sum", "data": [1, 2, 3, 4]} | Result: 10
+Task: {"task_type": "reverse", "data": "hello"} | Result: olleh
+Task: {"task_type": "prime", "data": 7} | Result: True
+Task: {"task_type": "prime", "data": 10} | Result: False
+Task: {"task_type": "sum", "data": [5, 10, 15]} | Result: 30
+Task: {"task_type": "reverse", "data": "python"} | Result: nohtyp
+Task: {"task_type": "prime", "data": 11} | Result: True
+Task: {"task_type": "prime", "data": 20} | Result: False
