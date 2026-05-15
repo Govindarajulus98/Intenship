@@ -1,0 +1,7 @@
+{
+    "workers": 0,
+    "waiting_tasks": 0,
+    "active_tasks": 0,
+    "completed_tasks": 0,
+    "server_status": "Running"
+}

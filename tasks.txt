@@ -1,4 +1,9 @@
-{"task_type": "sum", "data": [5, 10, 15]}
-{"task_type": "reverse", "data": "python"}
-{"task_type": "prime", "data": 11}
-{"task_type": "prime", "data": 20}
+{"task_type": "sum", "data": [1,2,3]}
+{"task_type": "reverse", "data": "hello"}
+{"task_type": "prime", "data": 97}
+{"task_type": "sort", "data": [5,3,1]}
+{"task_type": "factorial", "data": 5}
+{"task_type": "fibonacci", "data": 6}
+{"task_type": "uppercase", "data": "distributed system"}
+{"task_type": "count", "data": "python"}
+{"task_type": "sleep", "data": 5}

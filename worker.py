@@ -1,58 +1,79 @@
 import socket
 import json
+import time
+
 
 def process_task(task):
-    try:
-        if "task_type" not in task or "data" not in task:
-            return "Invalid task format"
 
-        if task["task_type"] == "sum":
-            return sum(task["data"])
+    print("Worker Received:", task)
 
-        elif task["task_type"] == "reverse":
-            return task["data"][::-1]
+    time.sleep(5)
 
-        elif task["task_type"] == "prime":
-            n = task["data"]
-            if n < 2:
-                return False
-            for i in range(2, int(n**0.5)+1):
-                if n % i == 0:
-                    return False
-            return True
+    task_type = task.get("task_type")
+    data = task.get("data")
 
-        else:
-            return "Unknown task"
+    if task_type == "sum":
+        return sum(data)
 
-    except Exception as e:
-        return f"Error: {str(e)}"
+    elif task_type == "reverse":
+        return data[::-1]
+
+    elif task_type == "sleep":
+
+        time.sleep(data)
+
+        return f"Slept for {data} seconds"
+
+    return "Task Completed"
+
 
 def start_worker():
-    worker = socket.socket()
-    worker.connect(("localhost", 5000))
 
-    # Register as worker
+    worker = socket.socket()
+
+    connected = False
+
+    while not connected:
+
+        try:
+
+            worker.connect(("localhost", 5000))
+
+            connected = True
+
+            print("Connected to Server")
+
+        except:
+
+            print("Waiting for server...")
+
+            time.sleep(2)
+
     worker.send("WORKER".encode())
 
-    print("Worker started...")
+    print("Worker Started")
 
-    while True:
-        try:
-            data = worker.recv(1024).decode()
+    try:
 
-            if not data:
-                break
+        data = worker.recv(1024).decode()
+
+        if data:
 
             task = json.loads(data)
+
             result = process_task(task)
+
+            print("Sending Result:", result)
 
             worker.send(str(result).encode())
 
-        except Exception as e:
-            print("Worker error:", e)
-            break
+    except Exception as e:
+
+        print("Worker Error:", e)
 
     worker.close()
 
+    print("Worker Exited")
+if __name__ == "__main__":
 
-start_worker()
+    start_worker()

@@ -1,22 +1,70 @@
 import socket
 import json
 
+
 def send_task(task):
-    client = socket.socket()
-    client.connect(("localhost", 5000))
 
-    client.send(json.dumps(task).encode())
+    try:
 
-    result = client.recv(1024).decode()
-    print("Task:", task)
-    print("Result:", result)
-    print("----------------------")
+        client = socket.socket()
 
-    client.close()
+        client.connect(("localhost", 5000))
+
+        print("Sending Task:", task)
+
+        client.send(json.dumps(task).encode())
+
+        response = client.recv(1024).decode()
+
+        print("Server:", response)
+
+        try:
+
+            result = client.recv(1024).decode()
+
+            if result:
+                print("Result:", result)
+
+        except:
+            pass
+
+        print("----------------------")
+
+        client.close()
+
+    except Exception as e:
+
+        print("Client Error:", e)
 
 
-# READ TASKS FROM FILE
-with open("tasks.txt", "r") as f:
-    for line in f:
-        task = json.loads(line.strip())
-        send_task(task)
+def run_client():
+
+    try:
+
+        with open("tasks.txt", "r") as f:
+
+            for line in f:
+
+                line = line.strip()
+
+                if not line:
+                    continue
+
+                try:
+
+                    task = json.loads(line)
+
+                    send_task(task)
+
+                except json.JSONDecodeError:
+
+                    print("Invalid JSON:", line)
+
+    except FileNotFoundError:
+
+        print("tasks.txt not found")
+
+
+if __name__ == "__main__":
+
+    run_client()
